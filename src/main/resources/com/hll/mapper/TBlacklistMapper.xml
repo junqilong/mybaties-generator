@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hll.mapper.TBlacklistMapper">
+  <resultMap id="BaseResultMap" type="com.hll.model.TBlacklist">
+    <result column="id" jdbcType="BIGINT" property="id" />
+    <result column="black_name" jdbcType="VARCHAR" property="blackName" />
+    <result column="content_id" jdbcType="BIGINT" property="contentId" />
+    <result column="content_type" jdbcType="VARCHAR" property="contentType" />
+    <result column="black_attr" jdbcType="VARCHAR" property="blackAttr" />
+    <result column="black_desc" jdbcType="VARCHAR" property="blackDesc" />
+    <result column="countries" jdbcType="VARCHAR" property="countries" />
+    <result column="languages" jdbcType="VARCHAR" property="languages" />
+    <result column="age_range_ids" jdbcType="VARCHAR" property="ageRangeIds" />
+    <result column="model_names" jdbcType="VARCHAR" property="modelNames" />
+    <result column="version_codes" jdbcType="VARCHAR" property="versionCodes" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="create_by" jdbcType="INTEGER" property="createBy" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="update_by" jdbcType="INTEGER" property="updateBy" />
+    <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, black_name, content_id, content_type, black_attr, black_desc, countries, languages, 
+    age_range_ids, model_names, version_codes, status, create_by, create_date, update_by, 
+    update_date
+  </sql>
+  <select id="selectByExample" parameterType="com.hll.model.TBlacklistExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from t_blacklist
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.hll.model.TBlacklistExample">
+    delete from t_blacklist
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.hll.model.TBlacklist" useGeneratedKeys="true">
+    insert into t_blacklist (black_name, content_id, content_type, 
+      black_attr, black_desc, countries, 
+      languages, age_range_ids, model_names, 
+      version_codes, status, create_by, 
+      create_date, update_by, update_date
+      )
+    values (#{blackName,jdbcType=VARCHAR}, #{contentId,jdbcType=BIGINT}, #{contentType,jdbcType=VARCHAR}, 
+      #{blackAttr,jdbcType=VARCHAR}, #{blackDesc,jdbcType=VARCHAR}, #{countries,jdbcType=VARCHAR}, 
+      #{languages,jdbcType=VARCHAR}, #{ageRangeIds,jdbcType=VARCHAR}, #{modelNames,jdbcType=VARCHAR}, 
+      #{versionCodes,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{createBy,jdbcType=INTEGER}, 
+      #{createDate,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=INTEGER}, #{updateDate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.hll.model.TBlacklist" useGeneratedKeys="true">
+    insert into t_blacklist
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="blackName != null">
+        black_name,
+      </if>
+      <if test="contentId != null">
+        content_id,
+      </if>
+      <if test="contentType != null">
+        content_type,
+      </if>
+      <if test="blackAttr != null">
+        black_attr,
+      </if>
+      <if test="blackDesc != null">
+        black_desc,
+      </if>
+      <if test="countries != null">
+        countries,
+      </if>
+      <if test="languages != null">
+        languages,
+      </if>
+      <if test="ageRangeIds != null">
+        age_range_ids,
+      </if>
+      <if test="modelNames != null">
+        model_names,
+      </if>
+      <if test="versionCodes != null">
+        version_codes,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="createBy != null">
+        create_by,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="updateBy != null">
+        update_by,
+      </if>
+      <if test="updateDate != null">
+        update_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="blackName != null">
+        #{blackName,jdbcType=VARCHAR},
+      </if>
+      <if test="contentId != null">
+        #{contentId,jdbcType=BIGINT},
+      </if>
+      <if test="contentType != null">
+        #{contentType,jdbcType=VARCHAR},
+      </if>
+      <if test="blackAttr != null">
+        #{blackAttr,jdbcType=VARCHAR},
+      </if>
+      <if test="blackDesc != null">
+        #{blackDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="countries != null">
+        #{countries,jdbcType=VARCHAR},
+      </if>
+      <if test="languages != null">
+        #{languages,jdbcType=VARCHAR},
+      </if>
+      <if test="ageRangeIds != null">
+        #{ageRangeIds,jdbcType=VARCHAR},
+      </if>
+      <if test="modelNames != null">
+        #{modelNames,jdbcType=VARCHAR},
+      </if>
+      <if test="versionCodes != null">
+        #{versionCodes,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createBy != null">
+        #{createBy,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null">
+        #{updateBy,jdbcType=INTEGER},
+      </if>
+      <if test="updateDate != null">
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hll.model.TBlacklistExample" resultType="java.lang.Long">
+    select count(*) from t_blacklist
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update t_blacklist
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.blackName != null">
+        black_name = #{record.blackName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contentId != null">
+        content_id = #{record.contentId,jdbcType=BIGINT},
+      </if>
+      <if test="record.contentType != null">
+        content_type = #{record.contentType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.blackAttr != null">
+        black_attr = #{record.blackAttr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.blackDesc != null">
+        black_desc = #{record.blackDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.countries != null">
+        countries = #{record.countries,jdbcType=VARCHAR},
+      </if>
+      <if test="record.languages != null">
+        languages = #{record.languages,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ageRangeIds != null">
+        age_range_ids = #{record.ageRangeIds,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modelNames != null">
+        model_names = #{record.modelNames,jdbcType=VARCHAR},
+      </if>
+      <if test="record.versionCodes != null">
+        version_codes = #{record.versionCodes,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.createBy != null">
+        create_by = #{record.createBy,jdbcType=INTEGER},
+      </if>
+      <if test="record.createDate != null">
+        create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateBy != null">
+        update_by = #{record.updateBy,jdbcType=INTEGER},
+      </if>
+      <if test="record.updateDate != null">
+        update_date = #{record.updateDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update t_blacklist
+    set id = #{record.id,jdbcType=BIGINT},
+      black_name = #{record.blackName,jdbcType=VARCHAR},
+      content_id = #{record.contentId,jdbcType=BIGINT},
+      content_type = #{record.contentType,jdbcType=VARCHAR},
+      black_attr = #{record.blackAttr,jdbcType=VARCHAR},
+      black_desc = #{record.blackDesc,jdbcType=VARCHAR},
+      countries = #{record.countries,jdbcType=VARCHAR},
+      languages = #{record.languages,jdbcType=VARCHAR},
+      age_range_ids = #{record.ageRangeIds,jdbcType=VARCHAR},
+      model_names = #{record.modelNames,jdbcType=VARCHAR},
+      version_codes = #{record.versionCodes,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=INTEGER},
+      create_by = #{record.createBy,jdbcType=INTEGER},
+      create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      update_by = #{record.updateBy,jdbcType=INTEGER},
+      update_date = #{record.updateDate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

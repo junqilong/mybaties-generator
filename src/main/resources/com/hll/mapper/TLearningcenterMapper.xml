@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hll.mapper.TLearningcenterMapper">
+  <resultMap id="BaseResultMap" type="com.hll.model.TLearningcenter">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="content_id" jdbcType="BIGINT" property="contentId" />
+    <result column="content_type" jdbcType="VARCHAR" property="contentType" />
+    <result column="content_name" jdbcType="VARCHAR" property="contentName" />
+    <result column="content_trait_name" jdbcType="VARCHAR" property="contentTraitName" />
+    <result column="languages" jdbcType="VARCHAR" property="languages" />
+    <result column="age_range_ids" jdbcType="VARCHAR" property="ageRangeIds" />
+    <result column="model_names" jdbcType="VARCHAR" property="modelNames" />
+    <result column="version_codes" jdbcType="VARCHAR" property="versionCodes" />
+    <result column="countries" jdbcType="VARCHAR" property="countries" />
+    <result column="sort" jdbcType="INTEGER" property="sort" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="create_by" jdbcType="INTEGER" property="createBy" />
+    <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
+    <result column="update_by" jdbcType="INTEGER" property="updateBy" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, content_id, content_type, content_name, content_trait_name, languages, age_range_ids, 
+    model_names, version_codes, countries, sort, status, remark, create_date, create_by, 
+    update_date, update_by
+  </sql>
+  <select id="selectByExample" parameterType="com.hll.model.TLearningcenterExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from t_learningcenter
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_learningcenter
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from t_learningcenter
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hll.model.TLearningcenterExample">
+    delete from t_learningcenter
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.hll.model.TLearningcenter" useGeneratedKeys="true">
+    insert into t_learningcenter (content_id, content_type, content_name, 
+      content_trait_name, languages, age_range_ids, 
+      model_names, version_codes, countries, 
+      sort, status, remark, 
+      create_date, create_by, update_date, 
+      update_by)
+    values (#{contentId,jdbcType=BIGINT}, #{contentType,jdbcType=VARCHAR}, #{contentName,jdbcType=VARCHAR}, 
+      #{contentTraitName,jdbcType=VARCHAR}, #{languages,jdbcType=VARCHAR}, #{ageRangeIds,jdbcType=VARCHAR}, 
+      #{modelNames,jdbcType=VARCHAR}, #{versionCodes,jdbcType=VARCHAR}, #{countries,jdbcType=VARCHAR}, 
+      #{sort,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, 
+      #{createDate,jdbcType=TIMESTAMP}, #{createBy,jdbcType=INTEGER}, #{updateDate,jdbcType=TIMESTAMP}, 
+      #{updateBy,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.hll.model.TLearningcenter" useGeneratedKeys="true">
+    insert into t_learningcenter
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="contentId != null">
+        content_id,
+      </if>
+      <if test="contentType != null">
+        content_type,
+      </if>
+      <if test="contentName != null">
+        content_name,
+      </if>
+      <if test="contentTraitName != null">
+        content_trait_name,
+      </if>
+      <if test="languages != null">
+        languages,
+      </if>
+      <if test="ageRangeIds != null">
+        age_range_ids,
+      </if>
+      <if test="modelNames != null">
+        model_names,
+      </if>
+      <if test="versionCodes != null">
+        version_codes,
+      </if>
+      <if test="countries != null">
+        countries,
+      </if>
+      <if test="sort != null">
+        sort,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="createBy != null">
+        create_by,
+      </if>
+      <if test="updateDate != null">
+        update_date,
+      </if>
+      <if test="updateBy != null">
+        update_by,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="contentId != null">
+        #{contentId,jdbcType=BIGINT},
+      </if>
+      <if test="contentType != null">
+        #{contentType,jdbcType=VARCHAR},
+      </if>
+      <if test="contentName != null">
+        #{contentName,jdbcType=VARCHAR},
+      </if>
+      <if test="contentTraitName != null">
+        #{contentTraitName,jdbcType=VARCHAR},
+      </if>
+      <if test="languages != null">
+        #{languages,jdbcType=VARCHAR},
+      </if>
+      <if test="ageRangeIds != null">
+        #{ageRangeIds,jdbcType=VARCHAR},
+      </if>
+      <if test="modelNames != null">
+        #{modelNames,jdbcType=VARCHAR},
+      </if>
+      <if test="versionCodes != null">
+        #{versionCodes,jdbcType=VARCHAR},
+      </if>
+      <if test="countries != null">
+        #{countries,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null">
+        #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createBy != null">
+        #{createBy,jdbcType=INTEGER},
+      </if>
+      <if test="updateDate != null">
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null">
+        #{updateBy,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hll.model.TLearningcenterExample" resultType="java.lang.Long">
+    select count(*) from t_learningcenter
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update t_learningcenter
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.contentId != null">
+        content_id = #{record.contentId,jdbcType=BIGINT},
+      </if>
+      <if test="record.contentType != null">
+        content_type = #{record.contentType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contentName != null">
+        content_name = #{record.contentName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contentTraitName != null">
+        content_trait_name = #{record.contentTraitName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.languages != null">
+        languages = #{record.languages,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ageRangeIds != null">
+        age_range_ids = #{record.ageRangeIds,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modelNames != null">
+        model_names = #{record.modelNames,jdbcType=VARCHAR},
+      </if>
+      <if test="record.versionCodes != null">
+        version_codes = #{record.versionCodes,jdbcType=VARCHAR},
+      </if>
+      <if test="record.countries != null">
+        countries = #{record.countries,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sort != null">
+        sort = #{record.sort,jdbcType=INTEGER},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.remark != null">
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createDate != null">
+        create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createBy != null">
+        create_by = #{record.createBy,jdbcType=INTEGER},
+      </if>
+      <if test="record.updateDate != null">
+        update_date = #{record.updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateBy != null">
+        update_by = #{record.updateBy,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update t_learningcenter
+    set id = #{record.id,jdbcType=BIGINT},
+      content_id = #{record.contentId,jdbcType=BIGINT},
+      content_type = #{record.contentType,jdbcType=VARCHAR},
+      content_name = #{record.contentName,jdbcType=VARCHAR},
+      content_trait_name = #{record.contentTraitName,jdbcType=VARCHAR},
+      languages = #{record.languages,jdbcType=VARCHAR},
+      age_range_ids = #{record.ageRangeIds,jdbcType=VARCHAR},
+      model_names = #{record.modelNames,jdbcType=VARCHAR},
+      version_codes = #{record.versionCodes,jdbcType=VARCHAR},
+      countries = #{record.countries,jdbcType=VARCHAR},
+      sort = #{record.sort,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=INTEGER},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      create_by = #{record.createBy,jdbcType=INTEGER},
+      update_date = #{record.updateDate,jdbcType=TIMESTAMP},
+      update_by = #{record.updateBy,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hll.model.TLearningcenter">
+    update t_learningcenter
+    <set>
+      <if test="contentId != null">
+        content_id = #{contentId,jdbcType=BIGINT},
+      </if>
+      <if test="contentType != null">
+        content_type = #{contentType,jdbcType=VARCHAR},
+      </if>
+      <if test="contentName != null">
+        content_name = #{contentName,jdbcType=VARCHAR},
+      </if>
+      <if test="contentTraitName != null">
+        content_trait_name = #{contentTraitName,jdbcType=VARCHAR},
+      </if>
+      <if test="languages != null">
+        languages = #{languages,jdbcType=VARCHAR},
+      </if>
+      <if test="ageRangeIds != null">
+        age_range_ids = #{ageRangeIds,jdbcType=VARCHAR},
+      </if>
+      <if test="modelNames != null">
+        model_names = #{modelNames,jdbcType=VARCHAR},
+      </if>
+      <if test="versionCodes != null">
+        version_codes = #{versionCodes,jdbcType=VARCHAR},
+      </if>
+      <if test="countries != null">
+        countries = #{countries,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null">
+        sort = #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createBy != null">
+        create_by = #{createBy,jdbcType=INTEGER},
+      </if>
+      <if test="updateDate != null">
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null">
+        update_by = #{updateBy,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hll.model.TLearningcenter">
+    update t_learningcenter
+    set content_id = #{contentId,jdbcType=BIGINT},
+      content_type = #{contentType,jdbcType=VARCHAR},
+      content_name = #{contentName,jdbcType=VARCHAR},
+      content_trait_name = #{contentTraitName,jdbcType=VARCHAR},
+      languages = #{languages,jdbcType=VARCHAR},
+      age_range_ids = #{ageRangeIds,jdbcType=VARCHAR},
+      model_names = #{modelNames,jdbcType=VARCHAR},
+      version_codes = #{versionCodes,jdbcType=VARCHAR},
+      countries = #{countries,jdbcType=VARCHAR},
+      sort = #{sort,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      create_by = #{createBy,jdbcType=INTEGER},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      update_by = #{updateBy,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
